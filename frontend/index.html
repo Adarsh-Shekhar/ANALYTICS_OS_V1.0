@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ANALYTICS_OS_V1.0 - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fdf8fd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f7f2f7",
+                        "on-tertiary-fixed-variant": "#504702",
+                        "on-secondary-container": "#7b3f5d",
+                        "surface-tint": "#65568a",
+                        "on-background": "#1c1b1f",
+                        "on-tertiary-fixed": "#201c00",
+                        "on-secondary-fixed-variant": "#6d3351",
+                        "secondary-container": "#feb0d3",
+                        "pixel-green": "#A9D48D",
+                        "on-surface": "#1c1b1f",
+                        "outline": "#7a757f",
+                        "on-primary-fixed": "#201142",
+                        "primary": "#65568a",
+                        "surface-bright": "#fdf8fd",
+                        "tertiary-fixed": "#f1e491",
+                        "surface-container": "#f2ecf1",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#cfbdf9",
+                        "secondary-fixed-dim": "#feb0d3",
+                        "background": "#fdf8fd",
+                        "surface-dim": "#ddd8dd",
+                        "on-primary-fixed-variant": "#4d3e71",
+                        "surface-variant": "#e6e1e6",
+                        "pixel-cream": "#F6E8C8",
+                        "tertiary-fixed-dim": "#d5c878",
+                        "secondary": "#894a69",
+                        "inverse-surface": "#323034",
+                        "on-surface-variant": "#49454e",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#cac4d0",
+                        "on-secondary-fixed": "#380724",
+                        "inverse-on-surface": "#f5eff4",
+                        "primary-fixed-dim": "#cfbdf9",
+                        "tertiary": "#685f1b",
+                        "secondary-fixed": "#ffd8e7",
+                        "pixel-white": "#FBF4E4",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#4b4300",
+                        "pixel-ink": "#201C1C",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#bcb063",
+                        "on-primary-container": "#483a6c",
+                        "surface-container-high": "#ece6ec",
+                        "surface-container-highest": "#e6e1e6",
+                        "primary-container": "#b7a6e0",
+                        "on-secondary": "#ffffff",
+                        "pixel-purple": "#65568a",
+                        "pixel-pink": "#feb0d3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "window-header-height": "32px",
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "shadow-offset": "8px",
+                        "pixel-unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["'JetBrains Mono'", "monospace"],
+                        "headline-xl": ["'Space Mono'", "monospace"],
+                        "body-md": ["'JetBrains Mono'", "monospace"],
+                        "body-lg": ["'JetBrains Mono'", "monospace"],
+                        "headline-md": ["'Space Mono'", "monospace"],
+                        "headline-lg": ["'Space Mono'", "monospace"],
+                        "label-sm": ["'JetBrains Mono'", "monospace"],
+                        "title-lg": ["'Space Mono'", "monospace"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-1px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pixel-window {
+            border: 3px solid #201C1C;
+            background-color: #FBF4E4;
+            box-shadow: 8px 8px 0px 0px rgba(32, 28, 28, 1);
+        }
+
+        .pixel-titlebar {
+            height: 32px;
+            background-color: #65568a;
+            border-bottom: 3px solid #201C1C;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            color: #FBF4E4;
+        }
+
+        .pixel-titlebar.pink {
+            background-color: #feb0d3;
+            color: #201C1C;
+        }
+
+        .pixel-button {
+            border: 2px solid #201C1C;
+            background-color: #e6e1e6;
+            box-shadow: inset 2px 2px 0px 0px rgba(255, 255, 255, 0.7);
+            color: #201C1C;
+            cursor: pointer;
+            padding: 8px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .pixel-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        .pixel-input {
+            border-top: 2px solid #201C1C;
+            border-left: 2px solid #201C1C;
+            border-bottom: 1px solid #7a757f;
+            border-right: 1px solid #7a757f;
+            background-color: #ffffff;
+            padding: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #1c1b1f;
+        }
+
+        .pixel-control-box {
+            display: flex;
+            gap: 2px;
+        }
+
+        .pixel-control {
+            width: 8px;
+            height: 8px;
+            background-color: #FBF4E4;
+            border: 1px solid #201C1C;
+        }
+
+        .pixel-titlebar.pink .pixel-control {
+            background-color: #201C1C;
+        }
+
+        .dither-bg {
+            background-image:
+                linear-gradient(45deg, #201C1C 25%, transparent 25%, transparent 75%, #201C1C 75%, #201C1C),
+                linear-gradient(45deg, #201C1C 25%, transparent 25%, transparent 75%, #201C1C 75%, #201C1C);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+            opacity: 0.05;
+        }
+
+        body {
+            background-color: #fdf8fd;
+            background-image: linear-gradient(#e6e1e6 1px, transparent 1px), linear-gradient(90deg, #e6e1e6 1px, transparent 1px);
+            background-size: 16px 16px;
+            background-position: -1px -1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+
+<body class="text-on-surface h-screen flex flex-col overflow-hidden">
+    <header
+        class="bg-primary text-pixel-white font-headline-md text-headline-md font-bold uppercase tracking-tighter w-full h-[32px] border-b-[3px] border-pixel-ink shadow-[8px_8px_0px_0px_rgba(32,28,28,1)] flex justify-between items-center px-4 shrink-0 z-50">
+        <div>ANALYTICS_OS_V1.0</div>
+        <nav class="hidden md:flex gap-4">
+            <a class="text-pixel-white opacity-80 font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-none active:translate-x-[2px] active:translate-y-[2px]"
+                href="#">SYSTEM</a>
+            <a class="text-pixel-white opacity-80 font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-none active:translate-x-[2px] active:translate-y-[2px]"
+                href="#">DATABASE</a>
+            <a class="text-pixel-white opacity-80 font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-none active:translate-x-[2px] active:translate-y-[2px]"
+                href="#">AI_LOGS</a>
+            <a class="text-pixel-white opacity-80 font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-none active:translate-x-[2px] active:translate-y-[2px]"
+                href="#">HELP</a>
+        </nav>
+        <div class="flex gap-2">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">power_settings_new</span>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden p-margin gap-margin">
+        <!-- Left Sidebar -->
+        <aside class="hidden md:flex flex-col w-[340px] h-full gap-4 shrink-0 z-10">
+            <div class="pixel-window flex flex-col h-full">
+                <div class="pixel-titlebar">
+                    <span class="font-headline-md text-[16px]">DATA_INGESTION</span>
+                    <div class="pixel-control-box">
+                        <div class="pixel-control"></div>
+                        <div class="pixel-control"></div>
+                        <div class="pixel-control"></div>
+                    </div>
+                </div>
+                <div class="p-4 flex flex-col gap-4 overflow-y-auto">
+                    <!-- Upload Zone -->
+                    <div id="dropZone"
+                        class="border-[3px] border-dashed border-pixel-ink p-4 flex flex-col items-center justify-center gap-2 bg-surface-container-lowest transition-colors">
+                        <span class="material-symbols-outlined text-[32px] text-pixel-pink"
+                            style="font-variation-settings: 'FILL' 1;">folder</span>
+                        <span class="font-label-md text-label-md text-center pointer-events-none">DRAG &amp;
+                            DROP<br />FILES HERE</span>
+                        <button id="uploadBtn"
+                            class="pixel-button mt-2 w-full text-pixel-ink font-bold">UPLOAD_FILE</button>
+                        <input type="file" id="fileInput" class="hidden" accept=".csv,.xlsx,.xls,.sql,.sqlite,.db" />
+                    </div>
+                    <!-- Schema Tree -->
+                    <div class="mt-4">
+                        <h3 class="font-headline-md text-[18px] border-b-2 border-pixel-ink pb-1 mb-2">SCHEMA_VIEW</h3>
+                        <ul id="schemaTree" class="font-body-md text-body-md flex flex-col gap-1">
+                            <li class="text-sm opacity-50 italic">Upload a database or file to see its schema.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="flex-1 flex flex-col h-full z-10 relative">
+            <div class="pixel-window flex flex-col h-full w-full">
+                <div class="pixel-titlebar pink">
+                    <span class="font-headline-md text-[16px] font-bold">AI_ASSISTANT.EXE</span>
+                    <div class="pixel-control-box">
+                        <div class="pixel-control"></div>
+                        <div class="pixel-control"></div>
+                        <div class="pixel-control"></div>
+                    </div>
+                </div>
+                <!-- Chat Log -->
+                <div id="chatLog"
+                    class="flex-1 p-4 flex flex-col gap-6 overflow-y-auto bg-surface-container-lowest relative">
+                    <div class="absolute inset-0 dither-bg pointer-events-none"></div>
+                    <div class="flex justify-start relative z-10">
+                        <div
+                            class="max-w-[85%] bg-pixel-white border-[3px] border-pixel-ink shadow-[4px_4px_0px_0px_rgba(32,28,28,1)] p-3 flex flex-col gap-3">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="material-symbols-outlined text-pixel-purple"
+                                    style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                                <span class="font-label-md text-label-md text-pixel-purple">SYS_AI</span>
+                            </div>
+                            <p class="font-body-md text-body-md text-pixel-ink">System ready. Please upload a dataset in
+                                the DATA_INGESTION window to begin analysis.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Composer -->
+                <div class="border-t-[3px] border-pixel-ink p-3 bg-surface flex gap-2">
+                    <span class="material-symbols-outlined mt-2 text-pixel-ink">terminal</span>
+                    <input id="chatInput" class="pixel-input flex-1 focus:outline-none focus:ring-0"
+                        placeholder="ENTER QUERY COMMAND..." type="text" />
+                    <button id="sendBtn"
+                        class="pixel-button bg-pixel-pink text-pixel-ink !border-pixel-ink shadow-[4px_4px_0px_0px_rgba(32,28,28,1)] flex items-center gap-1 disabled:opacity-50">
+                        <span class="font-bold">SEND</span>
+                        <span class="material-symbols-outlined text-[16px]">send</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        class="bg-pixel-ink text-pixel-green w-full h-8 flex justify-between items-center px-4 z-50 border-t-2 border-pixel-green shrink-0">
+        <span class="font-label-sm text-pixel-white">©1998 PIXEL_ANALYTICS_CORP</span>
+        <div class="flex gap-4 font-label-sm text-label-sm">
+            <a class="text-pixel-green opacity-70 hover:text-pixel-white underline transition-none"
+                href="#">PRIVACY.TXT</a>
+            <a class="text-pixel-green opacity-70 hover:text-pixel-white underline transition-none"
+                href="#">README.MD</a>
+            <a class="text-pixel-green opacity-70 hover:text-pixel-white underline transition-none"
+                href="#">SYS_REPORT</a>
+        </div>
+    </footer>
+
+    <script>
+        // Generate pseudo UUID since crypto.randomUUID may not be available in all contexts without HTTPS
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const sessionId = window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : generateUUID();
+        console.log("Session ID:", sessionId);
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const dropZone = document.getElementById('dropZone');
+        const schemaTree = document.getElementById('schemaTree');
+
+        const chatLog = document.getElementById('chatLog');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('bg-surface-variant');
+        });
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('bg-surface-variant');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('bg-surface-variant');
+            if (e.dataTransfer.files.length) {
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        async function handleFileUpload(file) {
+            uploadBtn.innerText = 'UPLOADING...';
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('session_id', sessionId);
+
+            try {
+                const response = await fetch('/ingest-file/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    renderSchema(data.schema);
+                    uploadBtn.innerText = 'UPLOAD_FILE';
+                    appendSysMessage(`File '${data.uploaded_file}' processed successfully. Tables loaded: ${data.tables_loaded.join(', ')}. Ready for queries.`);
+                } else {
+                    alert('Error: ' + data.message);
+                    uploadBtn.innerText = 'UPLOAD_FILE';
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Failed to upload file. See console for details.');
+                uploadBtn.innerText = 'UPLOAD_FILE';
+            }
+        }
+
+        function renderSchema(schema) {
+            schemaTree.innerHTML = '';
+            let isFirst = true;
+            for (const [tableName, columns] of Object.entries(schema)) {
+                const li = document.createElement('li');
+                li.className = 'flex flex-col gap-1';
+
+                let colsHtml = '';
+                for (const [colName, colType] of Object.entries(columns)) {
+                    let icon = colType.includes('INT') || colType.includes('FLOAT') || colType.includes('DOUBLE') || colType.includes('NUMERIC') ? 'tag' : 'match_case';
+                    colsHtml += `
+                        <li class="flex items-center gap-2 text-[14px]">
+                            <span class="material-symbols-outlined text-[14px]">${icon}</span>
+                            <span>${colName} (${colType})</span>
+                        </li>
+                    `;
+                }
+
+                const headerClass = isFirst
+                    ? 'flex items-center gap-2 cursor-pointer bg-secondary-container text-on-secondary-container border-2 border-pixel-ink shadow-[2px_2px_0px_0px_rgba(32,28,28,1)] p-1'
+                    : 'flex items-center gap-2 cursor-pointer hover:bg-surface-variant p-1';
+
+                const iconType = isFirst ? 'indeterminate_check_box' : 'add_box';
+                const ulStyle = isFirst ? '' : 'display: none;';
+
+                li.innerHTML = `
+                    <div class="${headerClass}" onclick="toggleTree(this)">
+                        <span class="material-symbols-outlined text-[16px]">${iconType}</span>
+                        <span class="material-symbols-outlined text-[16px] text-pixel-purple" style="font-variation-settings: 'FILL' 1;">table_chart</span>
+                        <span class="${isFirst ? 'font-bold underline' : ''}">${tableName}</span>
+                    </div>
+                    <ul class="ml-6 border-l-2 border-dotted border-pixel-ink pl-2 flex flex-col gap-1" style="${ulStyle}">
+                        ${colsHtml}
+                    </ul>
+                `;
+                schemaTree.appendChild(li);
+                isFirst = false;
+            }
+        }
+
+        window.toggleTree = function (element) {
+            const ul = element.nextElementSibling;
+            const icon = element.querySelector('span:first-child');
+            if (ul.style.display === 'none') {
+                ul.style.display = 'flex';
+                icon.innerText = 'indeterminate_check_box';
+            } else {
+                ul.style.display = 'none';
+                icon.innerText = 'add_box';
+            }
+        };
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            appendUserMessage(text);
+            chatInput.value = '';
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('/ask/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: text, session_id: sessionId })
+                });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    renderAIResponse(data);
+                } else {
+                    appendSysMessage("Error: " + data.message);
+                }
+            } catch (error) {
+                console.error(error);
+                appendSysMessage("Network error while communicating with AI.");
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        function getTimeString() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function appendUserMessage(text) {
+            const timeStr = getTimeString();
+            const html = `
+                <div class="flex justify-end relative z-10">
+                    <div class="max-w-[70%] bg-pixel-green border-[3px] border-pixel-ink shadow-[4px_4px_0px_0px_rgba(32,28,28,1)] p-3">
+                        <p class="font-body-md text-body-md text-pixel-ink">${text}</p>
+                        <span class="text-[10px] text-pixel-ink opacity-70 block mt-1 text-right">${timeStr}</span>
+                    </div>
+                </div>
+            `;
+            chatLog.insertAdjacentHTML('beforeend', html);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function appendSysMessage(text) {
+            const html = `
+                <div class="flex justify-start relative z-10">
+                    <div class="max-w-[85%] bg-pixel-white border-[3px] border-pixel-ink shadow-[4px_4px_0px_0px_rgba(32,28,28,1)] p-3 flex flex-col gap-3">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="material-symbols-outlined text-pixel-purple" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                            <span class="font-label-md text-label-md text-pixel-purple">SYS_AI</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-pixel-ink">${text}</p>
+                    </div>
+                </div>
+            `;
+            chatLog.insertAdjacentHTML('beforeend', html);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function renderAIResponse(data) {
+            let chartHtml = '';
+            if (data.chart_config && data.chart_config.chart_type !== 'none' && data.final_data && data.final_data.length > 0) {
+                chartHtml = renderChartBlock(data.chart_config, data.final_data);
+            }
+
+            let sqlHtml = '';
+            if (data.generated_sql) {
+                const escapedSql = data.generated_sql.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                sqlHtml = `
+                    <div class="mt-1 bg-pixel-ink border-2 border-outline p-2 text-[12px] overflow-x-auto">
+                        <div class="text-pixel-green font-bold mb-1">SQL_QUERY:</div>
+                        <code class="whitespace-pre text-pixel-white font-body-md">${escapedSql}</code>
+                    </div>
+                `;
+            }
+
+            const html = `
+                <div class="flex justify-start relative z-10">
+                    <div class="max-w-[85%] bg-pixel-white border-[3px] border-pixel-ink shadow-[4px_4px_0px_0px_rgba(32,28,28,1)] p-3 flex flex-col gap-3 w-full">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="material-symbols-outlined text-pixel-purple" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                            <span class="font-label-md text-label-md text-pixel-purple">SYS_AI</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-pixel-ink">${data.analysis_summary || 'Analysis complete.'}</p>
+                        ${sqlHtml}
+                        ${chartHtml}
+                    </div>
+                </div>
+            `;
+            chatLog.insertAdjacentHTML('beforeend', html);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function renderChartBlock(config, data) {
+            // Protect against invalid or missing keys
+            const yKey = config.y_axis_key;
+            const xKey = config.x_axis_key;
+
+            // Try to extract numeric values safely
+            let maxVal = 0;
+            data.forEach(d => {
+                let v = parseFloat(d[yKey]);
+                if (!isNaN(v) && v > maxVal) maxVal = v;
+            });
+
+            let barsHtml = '';
+            let labelsHtml = '';
+
+            const colors = ['bg-pixel-pink', 'bg-pixel-purple'];
+            let colorIdx = 0;
+
+            const displayData = data.slice(0, 5); // max 5 bars for layout simplicity
+
+            displayData.forEach(item => {
+                const rawVal = item[yKey];
+                const val = parseFloat(rawVal) || 0;
+                let displayVal = rawVal;
+                // Format large numbers simply
+                if (val > 1000) displayVal = (val / 1000).toFixed(1) + 'k';
+
+                const pct = maxVal > 0 ? Math.max((val / maxVal) * 100, 5) : 5;
+                const label = item[xKey] || 'N/A';
+                const shortLabel = String(label).substring(0, 4).toUpperCase();
+
+                const color = colors[colorIdx % colors.length];
+                colorIdx++;
+
+                barsHtml += `
+                    <div class="w-12 flex-1 max-w-[48px] ${color} border-2 border-pixel-ink relative group" style="height: ${pct}%;">
+                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] hidden group-hover:block bg-pixel-ink text-pixel-white px-1 z-50 whitespace-nowrap">${displayVal}</div>
+                    </div>
+                `;
+                labelsHtml += `<span class="flex-1 text-center truncate px-1">${shortLabel}</span>`;
+            });
+
+            return `
+                <div class="pixel-window w-full max-w-md mt-2 shadow-[4px_4px_0px_0px_rgba(32,28,28,1)]">
+                    <div class="pixel-titlebar h-[24px]">
+                        <span class="font-label-md text-[12px] uppercase truncate px-2">${config.title || 'CHART_RENDER.DAT'}</span>
+                    </div>
+                    <div class="p-4 bg-surface-container-lowest">
+                        <div class="h-40 flex items-end justify-around border-l-2 border-b-2 border-pixel-ink p-2 pt-6 relative gap-2">
+                            <div class="absolute left-[-25px] top-0 bottom-0 flex flex-col justify-between text-[10px]">
+                                <span>${maxVal > 1000 ? (maxVal / 1000).toFixed(1) + 'k' : maxVal}</span>
+                                <span>${maxVal > 1000 ? (maxVal / 2000).toFixed(1) + 'k' : Math.round(maxVal / 2)}</span>
+                                <span>0</span>
+                            </div>
+                            ${barsHtml}
+                        </div>
+                        <div class="flex justify-around mt-2 text-[10px] font-bold w-full">
+                            ${labelsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>
